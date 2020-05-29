@@ -1,4 +1,4 @@
-# student-directory
+# Student Directory #
 
 The student directory scrip allows you to manage the list of students enrolled at Villains Academy.
 
