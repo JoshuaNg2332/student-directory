@@ -23,6 +23,7 @@ def print_header
 puts "The students of Villains Academy"
 puts "----------------------"
 end
+
 def print_students_list
   @students.each.with_index(1) do |student, index|
     puts "#{index}.  #{student[:name]} (#{student[:cohort]} cohort)"
@@ -72,8 +73,10 @@ def show_students
 end
 
 def save_students
+  puts "Enter the name you would like for your list:"
+  file_input = gets.chomp + ".csv"
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(file_input, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -81,15 +84,20 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts "You have succesfully saved your list to students.csv."
 end
 
-def load_students(filename = "students.csv")
+def load_students
+  puts Dir["/Users/joshng/projects/student-directory/*.csv"]
+  user_selection = gets.chomp
+  filename = user_selection
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
+  puts "You have succesfully loaded your list from students.csv."
 end
 
 def try_load_students
@@ -104,5 +112,11 @@ def try_load_students
   end
 end
 
+=begin
+def making_list(name)
+  @students << {name: name, cohort: cohort.to_sym}
+end
+=end
 
+try_load_students
 interactive_menu
