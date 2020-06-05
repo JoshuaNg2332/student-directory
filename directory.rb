@@ -1,3 +1,4 @@
+require "csv"
 @students = [] # An empty array accessible to all methods
 
 def input_students
@@ -73,16 +74,21 @@ def save_students
   puts "Enter the name you would like for your list:"
   file_input = gets.chomp + ".csv"
   # open the file for writing
-  file = File.open(file_input, "w")
+  #file = File.open(file_input, "w")
   # iterate over the array of students
-  @students.each do |student|
+  #@students.each do |student|
     #student_data = [student[:name], student[:cohort]]
     #csv_line = student_data.join(",")
     #file.puts csv_line
-    file.puts [student[:name], student[:cohort]].join(",")
+    #file.puts [student[:name], student[:cohort]].join(",")
+
+    CSV.open(file_input, "a") do |csv|
+      @students.each do |student|
+        csv << [student[:name], student[:cohort]]
   end
-  file.close
+  #file.close
   puts "You have succesfully saved your list to students.csv."
+end
 end
 
 def user_load_selection
